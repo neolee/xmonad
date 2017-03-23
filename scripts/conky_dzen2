@@ -1,0 +1,14 @@
+background no
+out_to_console yes
+out_to_x no
+update_interval 0.3
+total_run_times 0
+use_spacer none
+ 
+TEXT
+
+^fg(\#7d7d7d)^i(/home/neo/.xmonad/icons/cpu.xbm)^fg()   ${cpu cpu0}%  ${cpu cpu1}%   \
+^fg(\#7d7d7d)^i(/home/neo/.xmonad/icons/uptime.xbm)^fg()   $uptime_short   \
+^fg(\#7d7d7d)^i(/home/neo/.xmonad/icons/mem.xbm)^fg()   ${mem} / ${memmax}   \
+^fg(\#7d7d7d)^fg()   Ubuntu 16.10 (x86_64)   \
+^bg(\#F33C5B)    ^i(/home/neo/.xmonad/icons/clock.xbm)   ${time %a, %d %b %R %p}     \

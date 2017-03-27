@@ -102,10 +102,13 @@ bgColor = "#2d2d2d"
 highlightColor = "#7d7d7d"
 font = "Pragmata"
 
+dzenHeight = "24"
+dzenWidth1 = "750"
+dzenWidth2 = "1280"
 dzenFGColor = "#fcfcfc"
 dzenBGColor = bgColor
-dzenBar = "dzen2 -p -ta l -e 'button3=' -fn '" ++ font ++ "-8:bold' -fg '" ++ dzenFGColor ++ "' -bg '" ++ dzenBGColor ++ "' -h 24 -w 750"
-dzenBarKanan = "conky -c ~/.xmonad/scripts/conky.conf | dzen2 -p -ta r -e 'button3=' -fn 'Pragmata-8' -fg '" ++ dzenFGColor ++ "' -bg '" ++ dzenBGColor ++ "' -h 24 -w 1280 -x 750"
+dzenBar = "dzen2 -dock -p -ta l -e 'button3=' -fn '" ++ font ++ "-8:bold' -fg '" ++ dzenFGColor ++ "' -bg '" ++ dzenBGColor ++ "' -h " ++ dzenHeight ++ " -w " ++ dzenWidth1
+dzenBarKanan = "conky -c ~/.xmonad/scripts/conky.conf | dzen2 -dock -p -ta r -e 'button3=' -fn 'Pragmata-8' -fg '" ++ dzenFGColor ++ "' -bg '" ++ dzenBGColor ++ "' -h " ++ dzenHeight ++ " -w " ++ dzenWidth2 ++ " -x " ++ dzenWidth1
 
 dmenuFGColor = "#F33C58"
 dmenuBGColor = bgColor

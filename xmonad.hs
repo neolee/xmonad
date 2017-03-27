@@ -59,6 +59,7 @@ myWorkspace = clickable . (map dzenEscape) $ [ "Main"
 		let n = i ]
 
 myKeys = [ ((mod1Mask, xK_d), spawn dmenu) 
+	, ((mod1Mask, xK_F12), spawn "scrot /home/neo/scrot/screen_%Y-%m-%d-%H-%M-%S.png -d 1")
 	, ((mod1Mask, xK_q), spawn "killall dzen2; xmonad --recompile; xmonad --restart")
     , ((mod1Mask, xK_v), spawn "firefox")]
 

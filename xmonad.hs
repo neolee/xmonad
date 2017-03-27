@@ -8,7 +8,7 @@ import XMonad.Layout.Grid
 import XMonad.Layout.NoBorders
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
-import XMonad.Util.EZConfig (additionalKeys)
+import XMonad.Util.EZConfig (additionalKeys, removeKeys)
 import System.IO
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
@@ -58,7 +58,7 @@ myWorkspace = clickable . (map dzenEscape) $ [ "Main"
 		(i,ws) <- zip [1..] l,
 		let n = i ]
 
-myKeys = [ ((mod1Mask, xK_p), spawn dmenu) 
+myKeys = [ ((mod1Mask, xK_d), spawn dmenu) 
 	, ((mod1Mask, xK_q), spawn "killall dzen2; xmonad --recompile; xmonad --restart")
     , ((mod1Mask, xK_v), spawn "firefox")]
 
@@ -91,7 +91,9 @@ main = do
 		, borderWidth = myBorderWidth
 		, startupHook = myStartupHook
 		, logHook = myLogHook barAtas
-		} `additionalKeys` myKeys
+		} 
+		`additionalKeys` myKeys
+		`removeKeys` [(mod1Mask, xK_p)]
 
 -- Utilities
 space = "   "

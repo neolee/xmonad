@@ -18,8 +18,10 @@ import qualified GHC.IO.Handle.Types as H
 myNormalBorderColor = bgColor
 myFocusBorderColor = "#ee0000"
 myModMask = mod1Mask
-myTerminal = "gnome-terminal"
+myTerminal = "x-terminal-emulator"
 myBorderWidth = 1
+
+myBrowser = "google-chrome"
 
 myLogHook h = do
 	dynamicLogWithPP $ myPP h
@@ -61,7 +63,7 @@ myWorkspace = clickable . (map dzenEscape) $ [ "Main"
 myKeys = [ ((mod1Mask, xK_d), spawn dmenu) 
 	, ((mod1Mask, xK_F12), spawn "scrot /home/neo/scrot/screen_%Y-%m-%d-%H-%M-%S.png -d 1")
 	, ((mod1Mask, xK_q), spawn "killall dzen2; xmonad --recompile; xmonad --restart")
-    , ((mod1Mask, xK_v), spawn "firefox")]
+    , ((mod1Mask, xK_v), spawn myBrowser)]
 
 myLayout = avoidStruts $ smartBorders ( myTall ||| Mirror myTall ||| myGrid ||| Full )
 	where 

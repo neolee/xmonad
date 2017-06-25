@@ -17,7 +17,7 @@ import qualified GHC.IO.Handle.Types as H
 -- Basic
 myNormalBorderColor = bgColor
 myFocusBorderColor = "#ee0000"
-myModMask = mod1Mask
+myModMask = mod4Mask
 myTerminal = "x-terminal-emulator"
 myBorderWidth = 1
 
@@ -35,7 +35,7 @@ myPP h = defaultPP
 	, ppHiddenNoWindows = dzenColor highlightColor dzenBGColor . pad . wrap space space
 	, ppWsSep	    = ""
 	, ppSep		    = ""
-	, ppLayout 		= wrap "^ca(1,xdotool key alt+space)" "^ca()" . dzenColor dzenFGColor highlightColor . pad . wrap space space .
+	, ppLayout 		= wrap "^ca(1,xdotool key super+space)" "^ca()" . dzenColor dzenFGColor highlightColor . pad . wrap space space .
 	( \t -> case t of
 	"Spacing 0 Grid"		-> cmdLayoutIcon ++ "grid.xbm)"
 	"Spacing 0 Tall"		-> cmdLayoutIcon ++ "sptall.xbm)"
@@ -44,7 +44,7 @@ myPP h = defaultPP
 	)					
 	, ppOrder  		= \(ws:l:t:_) -> [l,ws]
 	}
-cmdLayoutIcon = "^ca(1,xdotool key alt+space)^i(/home/neo/.xmonad/icons/"
+cmdLayoutIcon = "^ca(1,xdotool key super+space)^i(/home/neo/.xmonad/icons/"
 
 myWorkspace :: [String]
 myWorkspace = clickable . (map dzenEscape) $ [ "Main"
@@ -56,14 +56,14 @@ myWorkspace = clickable . (map dzenEscape) $ [ "Main"
 	--, "なの"
 	--, "はち"
 	]
-	where clickable l = [ "^ca(1,xdotool key alt+" ++ show (n) ++ ")" ++ ws ++ "^ca()" |
+	where clickable l = [ "^ca(1,xdotool key super+" ++ show (n) ++ ")" ++ ws ++ "^ca()" |
 		(i,ws) <- zip [1..] l,
 		let n = i ]
 
-myKeys = [ ((mod1Mask, xK_d), spawn dmenu) 
-	, ((mod1Mask, xK_F12), spawn "scrot /home/neo/scrot/screen_%Y-%m-%d-%H-%M-%S.png -d 1")
-	, ((mod1Mask, xK_q), spawn "killall dzen2; xmonad --recompile; xmonad --restart")
-    , ((mod1Mask, xK_v), spawn myBrowser)]
+myKeys = [ ((myModMask, xK_d), spawn dmenu) 
+	, ((myModMask, xK_F12), spawn "scrot /home/neo/scrot/screen_%Y-%m-%d-%H-%M-%S.png -d 1")
+	, ((myModMask, xK_q), spawn "killall dzen2; xmonad --recompile; xmonad --restart")
+    , ((myModMask, xK_v), spawn myBrowser)]
 
 myLayout = avoidStruts $ smartBorders ( myTall ||| Mirror myTall ||| myGrid ||| Full )
 	where 
@@ -96,7 +96,7 @@ main = do
 		, logHook = myLogHook barAtas
 		} 
 		`additionalKeys` myKeys
-		`removeKeys` [(mod1Mask, xK_p)]
+		`removeKeys` [(myModMask, xK_p)]
 
 -- Utilities
 space = "   "
@@ -105,8 +105,8 @@ highlightColor = "#7d7d7d"
 font = "Pragmata"
 
 dzenHeight = "24"
-dzenWidth1 = "750"
-dzenWidth2 = "1280"
+dzenWidth1 = "1500"
+dzenWidth2 = "2560"
 dzenFGColor = "#fcfcfc"
 dzenBGColor = bgColor
 dzenBar = "dzen2 -dock -p -ta l -e 'button3=' -fn '" ++ font ++ "-8:bold' -fg '" ++ dzenFGColor ++ "' -bg '" ++ dzenBGColor ++ "' -h " ++ dzenHeight ++ " -w " ++ dzenWidth1

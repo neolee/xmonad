@@ -4,7 +4,6 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import XMonad.Layout.Spacing
 import XMonad.Layout.Grid
 import XMonad.Layout.NoBorders
 import XMonad.Util.Run
@@ -38,9 +37,9 @@ myPP h = def
   , ppSep = ""
   , ppLayout = wrap "^ca(1,xdotool key super+space)" "^ca()" . dzenColor dzenFGColor highlightColor . pad . wrap space space .
     ( \t -> case t of
-      "Spacing 0 Grid" -> cmdLayoutIcon ++ "grid.xbm)"
-      "Spacing 0 Tall" -> cmdLayoutIcon ++ "sptall.xbm)"
-      "Mirror Spacing 0 Tall" -> cmdLayoutIcon ++ "mptall.xbm)"
+      "Grid" -> cmdLayoutIcon ++ "grid.xbm)"
+      "Tall" -> cmdLayoutIcon ++ "sptall.xbm)"
+      "Mirror Tall" -> cmdLayoutIcon ++ "mptall.xbm)"
       "Full" -> cmdLayoutIcon ++ "full.xbm)"
     )
   , ppOrder = \(ws:l:t:_) -> [l,ws]
@@ -68,8 +67,8 @@ myKeys = [ ((myModMask, xK_d), spawn dmenu)
 
 myLayout = avoidStruts $ smartBorders ( myTall ||| Mirror myTall ||| myGrid ||| Full )
   where
-    myTall = spacing 0 $ Tall 1 (3/100) (1/2)
-    myGrid = spacing 0 $ Grid
+    myTall = Tall 1 (3/100) (1/2)
+    myGrid = Grid
 
 myDocks = composeAll
   [ className =? "code" --> doFloat

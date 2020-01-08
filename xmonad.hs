@@ -4,6 +4,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
+import XMonad.Layout.Spacing
 import XMonad.Layout.Grid
 import XMonad.Layout.NoBorders
 import XMonad.Util.Run
@@ -21,7 +22,8 @@ myFocusBorderColor = "#ee0000"
 myBorderWidth = 1
 
 myTerminal = "urxvt"
-myBrowser = "firefox"
+myBrowser = "google-chrome"
+-- myBrowser = "firefox"
 
 myLogHook h = do
   dynamicLogWithPP $ myPP h
@@ -37,9 +39,9 @@ myPP h = def
   , ppSep = ""
   , ppLayout = wrap "^ca(1,xdotool key super+space)" "^ca()" . dzenColor dzenFGColor highlightColor . pad . wrap space space .
     ( \t -> case t of
-      "Grid" -> cmdLayoutIcon ++ "grid.xbm)"
-      "Tall" -> cmdLayoutIcon ++ "sptall.xbm)"
-      "Mirror Tall" -> cmdLayoutIcon ++ "mptall.xbm)"
+      "Spacing 0 Grid" -> cmdLayoutIcon ++ "grid.xbm)"
+      "Spacing 0 Tall" -> cmdLayoutIcon ++ "sptall.xbm)"
+      "Mirror Spacing 0 Tall" -> cmdLayoutIcon ++ "mptall.xbm)"
       "Full" -> cmdLayoutIcon ++ "full.xbm)"
     )
   , ppOrder = \(ws:l:t:_) -> [l,ws]
@@ -47,15 +49,7 @@ myPP h = def
 cmdLayoutIcon = "^ca(1,xdotool key super+space)^i(/home/neo/.xmonad/icons/"
 
 myWorkspace :: [String]
-myWorkspace = clickable . (map dzenEscape) $ [ "Main"
-                                             , "Learn"
-                                             , "Misc"
-                                             --, "よん"
-                                             --, "ご"
-                                             --, "ろく"
-                                             --, "なの"
-                                             --, "はち"
-                                             ]
+myWorkspace = clickable . (map dzenEscape) $ [ "1", "2", "3", "4", "5", "6", "7", "8", "9" ]
   where clickable l = [ "^ca(1,xdotool key super+" ++ show (n) ++ ")" ++ ws ++ "^ca()" |
                         (i,ws) <- zip [1..] l,
                         let n = i ]
@@ -67,8 +61,8 @@ myKeys = [ ((myModMask, xK_d), spawn dmenu)
 
 myLayout = avoidStruts $ smartBorders ( myTall ||| Mirror myTall ||| myGrid ||| Full )
   where
-    myTall = Tall 1 (3/100) (1/2)
-    myGrid = Grid
+    myTall = spacing 0 $ Tall 1 (3/100) (1/2)
+    myGrid = spacing 0 $ Grid
 
 myDocks = composeAll
   [ className =? "code" --> doFloat
@@ -105,8 +99,8 @@ highlightColor = "#7d7d7d"
 font = "Pragmata"
 
 dzenHeight = "24"
-dzenWidth1 = "750"
-dzenWidth2 = "1280"
+dzenWidth1 = "1500"
+dzenWidth2 = "2560"
 dzenFGColor = "#fcfcfc"
 dzenBGColor = bgColor
 dzenBar = "dzen2 -dock -p -ta l -e 'button3=' -fn '" ++ font ++ "-8:bold' -fg '" ++ dzenFGColor ++ "' -bg '" ++ dzenBGColor ++ "' -h " ++ dzenHeight ++ " -w " ++ dzenWidth1
